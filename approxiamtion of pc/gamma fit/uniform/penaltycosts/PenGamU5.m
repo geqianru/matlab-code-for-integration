@@ -1,4 +1,4 @@
-function [Pen]= PenGamU5(a_1,b_1,a_2,b_2,a_3,b_3,r_1,r_2)
+function [Pen]= PenGamU5(a_1,b_1,r_1,a_2,b_2,r_2)
 %%%%%%%%%%%Use Gamma distribution to fit downtime distribution and lambda follow uniform distribution%%%%%%%%%%%%%%%%%
 t = cputime; 
 T = 10;
