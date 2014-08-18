@@ -94,26 +94,7 @@ k = M_1 / theta;
 display(k);
 D_0 = sum (mus .* rs).*T * ed_f;
 display(D_0);
-%fun = @(x)max(x-D_0,0).* 1./((theta.^k).*gamma(k)).*x.^(k-1).*exp(-x./theta);
-% x = D_0:0.1:D_0+300;
-% y = max(x-D_0,0).* 1./((theta.^k).*gamma(k)).*x.^(k-1).*exp(-x./theta);
-% avg_a = integral(fun,0,Inf);
-% avg_a = trapz(x,y);
-
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%get the expected exceeded downtime  by trapz%
-%      function y = intofexpexcdown(x)
-%          y =  max(x-D_0,0).* 1./((theta.^k).*gamma(k)).*x.^(k-1).*exp(-x./theta);
-%      end
-% i = 1;
-% t(i) = D_0;
-% while (t(i)<D_0+1000)
-%    intavg(i) = intofexpexcdown(t(i));
-%    t(i+1) = t(i) + 0.1;
-%    i = i+1;
-% end 
-%  intavg(i) = intofexpexcdown(t(i));
-%  avg_a = trapz(t,intavg);
-%  display (avg_a);
-avg_a = k.* theta (1-gamcdf(D_0,k+1,theta)) - D_0.* (1-gamcdf(D_0,k,theta));
+%%%%%%%%%%get the expected exceeded downtime by using identities for the Gamma Distribution
+avg_a = k.* theta .* (1-gamcdf(D_0,k+1,theta)) - D_0.* (1-gamcdf(D_0,k,theta));
 display (avg_a);
 end
