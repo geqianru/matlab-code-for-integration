@@ -18,7 +18,9 @@ if (n==5)
        end
        sems(i) = (T^2) * (rs(i)^2) * (mus(i)^2+sigmas(i)^2);
        ss(i) = mus(i) * T * rs(i);
-       vs(i) = mus(i) * T * rs(i)^2;     
+       v1(i) = sigmas(i)^2 * T^2 * rs(i)^2;
+       v2(i) = mus(i) * T * rs(i)^2;
+       %v3(i) = mus(i)^2 * T^2 * rs(i)^2;     
    end
 else
     if (n==50)
@@ -38,7 +40,9 @@ else
             end
             sems(i) = (T^2) * (rs(i)^2) * (mus(i)^2+sigmas(i)^2);
             ss(i) = mus(i) * T * rs(i);
-            vs(i) = mus(i) * T * rs(i)^2; 
+            v1(i) = sigmas(i)^2 * T^2 * rs(i)^2;
+            v2(i) = mus(i) * T * rs(i)^2;
+            %v3(i) = mus(i)^2 * T^2 * rs(i)^2;    
         end
     else
         if (n==100)
@@ -59,7 +63,9 @@ else
                 end
                 sems(i) = (T^2) * (rs(i)^2) * (mus(i)^2+sigmas(i)^2);
                 ss(i) = mus(i) * T * rs(i);
-                vs(i) = mus(i) * T * rs(i)^2; 
+                v1(i) = sigmas(i)^2 * T^2 * rs(i)^2;
+                v2(i) = mus(i) * T * rs(i)^2;
+                %v3(i) = mus(i)^2 * T^2 * rs(i)^2;              
             end
         else
             display('input argument error, n can only be 5,50,or 100')
@@ -67,23 +73,49 @@ else
     end
 end
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%First Moment of downtime%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%Mean of downtime%%%%%%%%%%%%%%%%%%%%%%%
  M_1 = sum (ss);
-% %%%%%%%%%%%%%%%%%%%%%%%Second Moment%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% M_21 = sum(sems);
-% M_22 = sum(ss)^2 - sum(ss.^2);
- M_23 = sum(vs);
-% M_2 = M_21 + M_22 + M_23;
+% %%%%%%%%%%%%%%%%%%%%%%%Variance of downtime%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ Variance = sum(v1) + sum(v2);
 %%%%%%%Coefficent of variation
- c_v = sqrt(M_23)/(M_1);
-%%%%%%%%%%%%%%%%%%%estimate parameter k in the erlang distribution
+ c_v = sqrt(Variance)/(M_1);
+%%%%%%%%%%%%%%%%%%%estimate parameter k,q,theta in the erlang distribution
 k = ceil(1/c_v^2);
+q = 1/(1 + c_v^2) .* (k .* c_v^2 - sqrt( k .* (1 + c_v^2) - k^2 .* c_v^2));
+theta = (k - q)/(M_1);
 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Scale parameter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-% theta = M_2 / M_1 - M_1;
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%CDF of Gamma distribution%%%%%%%%%%%%%%%%%%%%%
-% k = M_1 / theta;
-% x_1 = gaminv((0.005:0.01:1),k,theta);
-% y_1 = gampdf(x_1,k,theta);
-% plot(x_1,y_1,'Color','r','LineStyle',':','LineWidth',2);
+%%%%%%%%%%%define a erlang(theta,k) pdf function
+    function p = erlangpdf(x,K,Theta)
+        p = Theta.^K .* exp(1).^(-Theta*x) .* x.^(K-1)/factorial(K-1);
+    end
+
+%%%%%%%%%%%Define the cdf function of erlang(theta, k)distribution
+    function c = erlangcdf(x,K,Theta)
+        c = 1 - symsum((Theta*x).^j.*exp(1)^(-Theta*x)/factorial(j),j,0,k-1);
+    end
+
+%%%%%%%pdf of a erlang(k-1,k) distribution
+    function pder1 = erlangkpdf(x,K,Theta)
+        pder1 = q * erlangpdf(x,K-1,Theta) + (1-q) * erlangpdf(x,K,Theta);
+    end
+%%%%%%Cdf of a erlang(k-1,k) distribution
+    function cder1 = erlangkcdf(x,K,Theta)
+        cder1 = q * erlangcdf(x,K-1,Theta)  + (1-q) * erlangcdf(x,K,Theta);
+    end
+
+if (n==5)
+  x_1 = 1:1:150;  
+else
+    if(n==50)
+        x_1 = 200:1:800;
+    else
+        x_1 = 500:1:1200;
+    end
+end
+            
+y_1 = erlangkpdf(x_1,k,theta);
+ plot(x_1,y_1,'Color','r','LineStyle',':','LineWidth',2);  hold on
+d = MSlognormaln(n,sigma_f);
+[f,xi] = ksdensity(d);
+plot(xi,f,'LineStyle','--','LineWidth',2); hold off
 end
