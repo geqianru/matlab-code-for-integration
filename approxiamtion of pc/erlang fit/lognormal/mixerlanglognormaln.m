@@ -94,7 +94,7 @@ theta = (k - q)/(M_1);
         c = 1 - symsum((Theta*x).^j.*exp(1)^(-Theta*x)/factorial(j),j,0,k-1);
     end
 
-%%%%%%%pdf of a erlang(k-1,k) distribution
+%%%%%%pdf of a erlang(k-1,k) distribution
     function pder1 = erlangkpdf(x,K,Theta)
         pder1 = q * erlangpdf(x,K-1,Theta) + (1-q) * erlangpdf(x,K,Theta);
     end
@@ -102,20 +102,41 @@ theta = (k - q)/(M_1);
     function cder1 = erlangkcdf(x,K,Theta)
         cder1 = q * erlangcdf(x,K-1,Theta)  + (1-q) * erlangcdf(x,K,Theta);
     end
+%%%%%%compute the ln(k-1)! part for the lner(k,k-1), er(k,k-1) is the pdf
+%%%%%%of a er(k,k-1,x)function, given the x^(k-1)equals to inf when x
+%%%%%%became large, first compute lner(k,k-1),then compute e^(lner(k,k-1))
+y_ln = 0;
+for j = 2:1:k-2    
+y_ln = y_ln + log(j);
+j = j + 1;
+end
+
 
 if (n==5)
-  x_1 = 1:1:150;  
+  x_1 = 1:1:150; 
+  y_1 = erlangkpdf(x_1,k,theta);
+  plot(x_1,y_1,'Color','r','LineStyle',':','LineWidth',2);  hold on
+  d = MSlognormaln(n,sigma_f);
+  [f,xi] = ksdensity(d);
+  plot(xi,f,'LineStyle','--','LineWidth',2); hold off
 else
     if(n==50)
         x_1 = 200:1:800;
+        y_1 = erlangkpdf(x_1,k,theta);
+        plot(x_1,y_1,'Color','r','LineStyle',':','LineWidth',2);  hold on
+        d = MSlognormaln(n,sigma_f);
+        [f,xi] = ksdensity(d);
+        plot(xi,f,'LineStyle','--','LineWidth',2); hold off
     else
         x_1 = 500:1:1200;
+        %%%%%%compute the rest part for the lnerpdf(k,k-1)
+        y = -theta * x_1 + (k-2) * log(x_1) + (k-1) * log(theta) + log( q + (1-q) * theta * x_1/(k-1)) - y_ln ;
+        y_1 = exp(y);
+        plot(x_1,y_1,'Color','r','LineStyle',':','LineWidth',2);  hold on
+        d = MSlognormaln(n,sigma_f);
+        [f,xi] = ksdensity(d);
+        plot(xi,f,'LineStyle','--','LineWidth',2); hold off
     end
 end
             
-y_1 = erlangkpdf(x_1,k,theta);
- plot(x_1,y_1,'Color','r','LineStyle',':','LineWidth',2);  hold on
-d = MSlognormaln(n,sigma_f);
-[f,xi] = ksdensity(d);
-plot(xi,f,'LineStyle','--','LineWidth',2); hold off
 end
