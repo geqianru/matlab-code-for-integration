@@ -8,6 +8,7 @@
 % end
 % y(i) = Downtimegammanexceed(100,t(i),1);
 % plot(t,y);
+clear all;
 [avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(5,0.2,1);
 save('G:\MATLAB\exceededdowntime\compareresult(5,0.2,1).mat');
 clear all;
@@ -38,20 +39,23 @@ clear all;
 [avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(5,0.4,1.4);
 save('G:\MATLAB\exceededdowntime\compareresult(5,0.4,1.4).mat');
 clear all;
-[avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(5,0.6,1);
-save('G:\MATLAB\exceededdowntime\compareresult(5,0.6,1).mat');
+[avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(5,0.57,1);
+save('G:\MATLAB\exceededdowntime\compareresult(5,0.57,1).mat');
 clear all;
-[avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(5,0.6,1.1);
-save('G:\MATLAB\exceededdowntime\compareresult(5,0.6,1.1).mat');
+[avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(5,0.57,1.1);
+save('G:\MATLAB\exceededdowntime\compareresult(5,0.57,1.1).mat');
 clear all;
-[avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(5,0.6,1.2);
-save('G:\MATLAB\exceededdowntime\compareresult(5,0.6,1.2).mat');
+[avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(5,0.57,1.2);
+save('G:\MATLAB\exceededdowntime\compareresult(5,0.57,1.2).mat');
 clear all;
-[avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(5,0.6,1.3);
-save('G:\MATLAB\exceededdowntime\compareresult(5,0.6,1.3).mat');
+[avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(5,0.57,1.3);
+save('G:\MATLAB\exceededdowntime\compareresult(5,0.57,1.3).mat');
 clear all;
-[avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(5,0.6,1.4);
-save('G:\MATLAB\exceededdowntime\compareresult(5,0.6,1.4).mat');
+[avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(5,0.57,1.4);
+save('G:\MATLAB\exceededdowntime\compareresult(5,0.57,1.4).mat');
+%run by 202
+
+
 clear all;
 [avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(50,0.2,1);
 save('G:\MATLAB\exceededdowntime\compareresult(50,0.2,1).mat');
@@ -67,7 +71,6 @@ save 'G:\MATLAB\exceededdowntime\compareresult(50,0.2,1.3).mat');
 clear all;
 [avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(50,0.2,1.4);
 save G:\MATLAB\exceededdowntime\compareresult(50,0.2,1.4).mat;
-%%run by 203
 
 
 clear all;
@@ -85,22 +88,23 @@ save('G:\MATLAB\exceededdowntime\compareresult(50,0.4,1.3).mat');
 clear all;
 [avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(50,0.4,1.4);
 save('G:\MATLAB\exceededdowntime\compareresult(50,0.4,1.4).mat');
-%run by 204
+%run by 203
+
 clear all;
-[avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(50,0.6,1);
-save('G:\MATLAB\exceededdowntime\compareresult(50,0.6,1).mat');
+[avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(50,0.57,1);
+save('G:\MATLAB\exceededdowntime\compareresult(50,0.57,1).mat');
 clear all;
-[avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(50,0.6,1.1);
-save('G:\MATLAB\exceededdowntime\compareresult(50,0.6,1.1).mat');
+[avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(50,0.57,1.1);
+save('G:\MATLAB\exceededdowntime\compareresult(50,0.57,1.1).mat');
 clear all;
-[avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(50,0.6,1.2);
-save('G:\MATLAB\exceededdowntime\compareresult(50,0.6,1.2).mat');
+[avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(50,0.57,1.2);
+save('G:\MATLAB\exceededdowntime\compareresult(50,0.57,1.2).mat');
 clear all;
-[avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(50,0.6,1.3);
-save('G:\MATLAB\exceededdowntime\compareresult(50,0.6,1.3).mat');
+[avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(50,0.57,1.3);
+save('G:\MATLAB\exceededdowntime\compareresult(50,0.57,1.3).mat');
 clear all;
-[avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(50,0.6,1.4);
-save('G:\MATLAB\exceededdowntime\compareresult(50,0.6,1.4).mat');
+[avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(50,0.57,1.4);
+save('G:\MATLAB\exceededdowntime\compareresult(50,0.57,1.4).mat');
 %run by 205
 clear all;
 [avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(100,0.2,1);
@@ -117,7 +121,7 @@ save('G:\MATLAB\exceededdowntime\compareresult(100,0.2,1.3).mat');
 clear all;
 [avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(100,0.2,1.4);
 save('G:\MATLAB\exceededdowntime\compareresult(100,0.2,1.4).mat');
-%run by 206
+%run by 204
 clear all;
 [avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(100,0.4,1);
 save('G:\MATLAB\exceededdowntime\compareresult(100,0.4,1).mat');
@@ -131,26 +135,27 @@ clear all;
 [avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(100,0.4,1.3);
 save('G:\MATLAB\exceededdowntime\compareresult(100,0.4,1.3).mat');
 clear all;
+% run by 205
 [avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(100,0.4,1.4);
 save('G:\MATLAB\exceededdowntime\compareresult(100,0.4,1.4).mat');
-%run by 202
+
 clear all;
-[avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(100,0.6,1);
-save('G:\MATLAB\exceededdowntime\compareresult(100,0.6,1).mat');
+[avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(100,0.57,1);
+save('G:\MATLAB\exceededdowntime\compareresult(100,0.57,1).mat');
 clear all;
-[avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(100,0.6,1.1);
-save('G:\MATLAB\exceededdowntime\compareresult(100,0.6,1.1).mat');
+[avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(100,0.57,1.1);
+save('G:\MATLAB\exceededdowntime\compareresult(100,0.57,1.1).mat');
 clear all;
-[avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(100,0.6,1.2);
-save('G:\MATLAB\exceededdowntime\compareresult(100,0.6,1.2).mat');
+[avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(100,0.57,1.2);
+save('G:\MATLAB\exceededdowntime\compareresult(100,0.57,1.2).mat');
 clear all;
-[avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(100,0.6,1.3);
-save('G:\MATLAB\exceededdowntime\compareresult(100,0.6,1.3).mat');
+[avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(100,0.57,1.3);
+save('G:\MATLAB\exceededdowntime\compareresult(100,0.57,1.3).mat');
 clear all;
-[avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(100,0.6,1.4);
-save('G:\MATLAB\exceededdowntime\compareresult(100,0.6,1.4).mat');
-%run by 203
-clear all;
+[avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(100,0.57,1.4);
+save('G:\MATLAB\exceededdowntime\compareresult(100,0.57,1.4).mat');
+%run by 206
+% clear all;
 % clear all;
 % for i = 1:1:3
 %     if i==1
@@ -170,7 +175,7 @@ clear all;
 %             display(k);
 %             ed_f = 1+(k-1)/10;
 %             [avg_gap,upper,lower,avg_sim,avg_a,Gap,avg_s,Gupper,Glower] = resultscompare(n,sigma,ed_f);
-%             save('D:\MATLAB\approxiamtion of pc\gamma fit\uniform\gap values\compareresult(n,sigma,ed_f.mat');
+%             save(['D:\MATLAB\approxiamtion of pc\gamma fit\uniform\gap values\compareresult(',num2str(n),num2str(sigma),num2str(ed_f),').mat']);
 %             %save compareresult(n,sigma,1+(k-1)/10).mat;
 %             clearvars -except i j k n sigma;           
 %         end

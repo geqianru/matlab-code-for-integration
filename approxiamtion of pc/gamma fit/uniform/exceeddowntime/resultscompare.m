@@ -19,7 +19,7 @@ end
 
 avg_a = Downtimegammanexceed(n,sigma_f,ed_f);
 %display(avg_a);
-sample_2 = 5;
+sample_2 = 50;
 %Gap = zeros(sample_2,1);
  for m = 1:sample_2
      display(m);
@@ -33,10 +33,10 @@ sample_2 = 5;
  stadev = std(avg_s);
  Gstadev = std(Gap);
  avg_gap = mean(Gap);
- upper = avg_sim + tinv(0.975,sample_2) * std(avg_s)/sqrt(sample_2); 
- lower = avg_sim - tinv(0.975,sample_2) * std(avg_s)/sqrt(sample_2);
- Gupper = avg_gap + tinv(0.975,sample_2) * std(Gap)/sqrt(sample_2);
- Glower = avg_gap - tinv(0.975,sample_2) * std(Gap)/sqrt(sample_2);
+ upper = avg_sim + tinv(0.975,sample_2-1) * std(avg_s)/sqrt(sample_2); 
+ lower = avg_sim - tinv(0.975,sample_2-1) * std(avg_s)/sqrt(sample_2);
+ Gupper = avg_gap + tinv(0.975,sample_2-1) * std(Gap)/sqrt(sample_2);
+ Glower = avg_gap - tinv(0.975,sample_2-1) * std(Gap)/sqrt(sample_2);
  %display (avg_sim);
  %display(avg_gap);
  

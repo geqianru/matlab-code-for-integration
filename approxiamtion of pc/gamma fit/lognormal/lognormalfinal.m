@@ -1,24 +1,14 @@
 clear all;
 counter = 0;
-for i = 1:1:3
-    if i == 1
-        n = 5;
-    else
-        if i == 2
-            n = 50;
-        else
-            n = 100;
-        end
-    end
-    display(n);
-    for j = 1:1:3
-        sigma = 0.2 * j;
-        display(sigma);
-        for k = 1:1:5
-            display(k);
-            ed_f = 1+(k-1)/10;
+n = [5 50 100];
+sigma_f = [0.2 0.5 1];
+ed_f = [1 1.1 1.2 1.3 1.4];
+for ni = 1:length(n)
+    for sj = 1:length(sigma_f)
+        for ek = 1:length(ed_f)
             counter = counter + 1;
-            [avg_gap(counter,:),upper(counter,:),lower(counter,:),avg_sim(counter,:),avg_a(counter,:),Gap(counter,:),avg_s(counter,:),Gupper(counter,:),Glower(counter,:)] = lognormalresultscompare(n,sigma,ed_f);
+            display (counter);
+            [avg_gap(counter,:),upper(counter,:),lower(counter,:),pavg_sim(counter,:),pavg_a(counter,:),pavg_s(counter,:),rel_gap(counter,:),max_gap(counter,:)] = lognormalresultscompare(n(ni),sigma_f(sj),ed_f(ek));
             %save('D:\MATLAB\approxiamtion of pc\gamma fit\uniform\gap values\compareresult(n,sigma,ed_f.mat');
             %save compareresult(n,sigma,1+(k-1)/10).mat;        
         end

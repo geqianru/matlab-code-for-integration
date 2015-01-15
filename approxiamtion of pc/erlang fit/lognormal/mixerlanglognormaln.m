@@ -1,9 +1,11 @@
-function [k] = mixerlanglognormaln(n,sigma_f)
+function [pavg_a, mus ,e] = mixerlanglognormaln(n,sigma_f,ed_f)
+t = cputime;
 T = 10;
+size = 10000;
 %%%%%%%%%%%%%%%%%%%%%%%%%Parameter setting of the distribution of these two uniformly distributed lambdas%%%%%%%%%%%%%%%%%%%%%%% 
 if (n==5)
    for i = 1:n
-       mus(i) = 1/(2*i);
+       mus(i) = 0.2 - (i-1) * 0.0450;
        sigmas(i) = mus(i) * sigma_f;
        sigmaln(i) = sqrt(log(sigmas(i)^2/mus(i)^2 + 1));
        muln(i) = log(mus(i)) - 0.5 * sigmaln(i)^2;
@@ -25,7 +27,7 @@ if (n==5)
 else
     if (n==50)
         for i = 1:n
-            mus(i) = 1/(1 + (1/5.5)*(i-1));
+            mus(i) = 0.2 - (i-1) * 0.0037;
             sigmas(i) = mus(i)* sigma_f;
             sigmaln(i) = sqrt(log(sigmas(i)^2/mus(i)^2 + 1));
             muln(i) = log(mus(i)) - 0.5 * sigmaln(i)^2;
@@ -47,7 +49,7 @@ else
     else
         if (n==100)
             for i = 1:n
-                mus(i) = 1/(1 + 1/11*(i-1));
+                mus(i) = 0.2 - (i-1) * 0.0018;
                 sigmas(i) = mus(i)* sigma_f;
                 sigmaln(i) = sqrt(log(sigmas(i)^2/mus(i)^2 + 1));
                 muln(i) = log(mus(i)) - 0.5 * sigmaln(i)^2;
@@ -83,60 +85,11 @@ end
 k = ceil(1/c_v^2);
 q = 1/(1 + c_v^2) .* (k .* c_v^2 - sqrt( k .* (1 + c_v^2) - k^2 .* c_v^2));
 theta = (k - q)/(M_1);
-
-%%%%%%%%%%%define a erlang(theta,k) pdf function
-    function p = erlangpdf(x,K,Theta)
-        p = Theta.^K .* exp(1).^(-Theta*x) .* x.^(K-1)/factorial(K-1);
-    end
-
-%%%%%%%%%%%Define the cdf function of erlang(theta, k)distribution
-    function c = erlangcdf(x,K,Theta)
-        c = 1 - symsum((Theta*x).^j.*exp(1)^(-Theta*x)/factorial(j),j,0,k-1);
-    end
-
-%%%%%%pdf of a erlang(k-1,k) distribution
-    function pder1 = erlangkpdf(x,K,Theta)
-        pder1 = q * erlangpdf(x,K-1,Theta) + (1-q) * erlangpdf(x,K,Theta);
-    end
-%%%%%%Cdf of a erlang(k-1,k) distribution
-    function cder1 = erlangkcdf(x,K,Theta)
-        cder1 = q * erlangcdf(x,K-1,Theta)  + (1-q) * erlangcdf(x,K,Theta);
-    end
-%%%%%%compute the ln(k-1)! part for the lner(k,k-1), er(k,k-1) is the pdf
-%%%%%%of a er(k,k-1,x)function, given the x^(k-1)equals to inf when x
-%%%%%%became large, first compute lner(k,k-1),then compute e^(lner(k,k-1))
-y_ln = 0;
-for j = 2:1:k-2    
-y_ln = y_ln + log(j);
-j = j + 1;
-end
-
-
-if (n==5)
-  x_1 = 1:1:150; 
-  y_1 = erlangkpdf(x_1,k,theta);
-  plot(x_1,y_1,'Color','r','LineStyle',':','LineWidth',2);  hold on
-  d = MSlognormaln(n,sigma_f);
-  [f,xi] = ksdensity(d);
-  plot(xi,f,'LineStyle','--','LineWidth',2); hold off
-else
-    if(n==50)
-        x_1 = 200:1:800;
-        y_1 = erlangkpdf(x_1,k,theta);
-        plot(x_1,y_1,'Color','r','LineStyle',':','LineWidth',2);  hold on
-        d = MSlognormaln(n,sigma_f);
-        [f,xi] = ksdensity(d);
-        plot(xi,f,'LineStyle','--','LineWidth',2); hold off
-    else
-        x_1 = 500:1:1200;
-        %%%%%%compute the rest part for the lnerpdf(k,k-1)
-        y = -theta * x_1 + (k-2) * log(x_1) + (k-1) * log(theta) + log( q + (1-q) * theta * x_1/(k-1)) - y_ln ;
-        y_1 = exp(y);
-        plot(x_1,y_1,'Color','r','LineStyle',':','LineWidth',2);  hold on
-        d = MSlognormaln(n,sigma_f);
-        [f,xi] = ksdensity(d);
-        plot(xi,f,'LineStyle','--','LineWidth',2); hold off
-    end
-end
-            
+%%%%%%%%%%%%%D_0(targeted downtime)%%%%%%%%%%%%%%%
+D_0 = sum (mus .* rs).*T * ed_f;
+%%%%%%%%%%%%%%%%%%%average exceeded downtime%%%%%%%%%%%%%%%%%%%%%%%%%
+avg_a1 = D_0*(1-(q * gamcdf(D_0,k-1,1./theta)+(1-q)*gamcdf(D_0,k,1./theta)));
+avg_a = q * (k-1) / theta * (1 - gamcdf(D_0,k,1./theta)) + k * (1-q) / theta * (1-gamcdf(D_0,k+1,1./theta))-avg_a1;
+pavg_a = avg_a/D_0;
+e = cputime-t;
 end

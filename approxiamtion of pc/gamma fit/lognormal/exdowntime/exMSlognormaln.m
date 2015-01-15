@@ -1,10 +1,10 @@
-function [exdowntime] = exMSlognormaln(n,sigma_f,ed_f)
+function [exdowntime,mus] = exMSlognormaln(n,sigma_f,ed_f)
 T = 10;
 %samples = 1;
 %%%%%%%%%%%%%%%%%%%%%%%%%Parameter setting of the distribution of these two uniformly distributed lambdas%%%%%%%%%%%%%%%%%%%%%%% 
 if (n==5)
    for i = 1:n
-       mus(i) = 1/(2*i);
+       mus(i) = 0.2 - (i-1) * 0.0450;
        sigmas(i) = mus(i) * sigma_f;
        sigmaln(i) = sqrt(log(sigmas(i)^2/mus(i)^2 + 1));
        muln(i) = log(mus(i)) - 0.5 * sigmaln(i)^2;
@@ -22,7 +22,7 @@ if (n==5)
 else
     if (n==50)
         for i = 1:n
-            mus(i) = 1/(1 + (1/5.5)*(i-1));
+            mus(i) = 0.2 - (i-1) * 0.0037;
             sigmas(i) = mus(i)* sigma_f;
             sigmaln(i) = sqrt(log(sigmas(i)^2/mus(i)^2 + 1));
             muln(i) = log(mus(i)) - 0.5 * sigmaln(i)^2;
@@ -40,7 +40,7 @@ else
     else
         if (n==100)
             for i = 1:n
-                mus(i) = 1/(1 + 1/11*(i-1));
+                mus(i) = 0.2 - (i-1) * 0.0018;
                 sigmas(i) = mus(i)* sigma_f;
                 sigmaln(i) = sqrt(log(sigmas(i)^2/mus(i)^2 + 1));
                 muln(i) = log(mus(i)) - 0.5 * sigmaln(i)^2;

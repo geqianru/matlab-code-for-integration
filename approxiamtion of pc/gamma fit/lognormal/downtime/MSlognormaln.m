@@ -1,57 +1,57 @@
-function [downtime] = MSlognormaln(n,sigma_f)
+function [downtime] = MSlognormaln(n,sigma_f,mu_f, r_f)
 T = 10;
 samples = 10000;
 %%%%%%%%%%%%%%%%%%%%%%%%%Parameter setting of the distribution of these two uniformly distributed lambdas%%%%%%%%%%%%%%%%%%%%%%% 
 if (n==5)
    for i = 1:n
-       mus(i) = 1/(2*i);
+       mus(i) = mu_f * (1/(2*i));
        sigmas(i) = mus(i) * sigma_f;
        sigmaln(i) = sqrt(log(sigmas(i)^2/mus(i)^2 + 1));
        muln(i) = log(mus(i)) - 0.5 * sigmaln(i)^2;
        lambdas(i,:) = lognrnd(muln(i), sigmaln(i),samples,1);
        if (mod(i,3) == 1)
-            rs(i) = 1;
+            rs(i) = r_f * 1;
         else
             if (mod(i,3) == 2)
-                rs(i) = 3;
+                rs(i) = r_f * 3;
             else
-                rs(i) = 5; 
+                rs(i) = r_f * 5; 
             end
         end
    end
 else
     if (n==50)
         for i = 1:n
-            mus(i) = 1/(1 + (1/5.5)*(i-1));
+            mus(i) = mu_f *( 1/(1 + (1/5.5)*(i-1)));
             sigmas(i) = mus(i)* sigma_f;
             sigmaln(i) = sqrt(log(sigmas(i)^2/mus(i)^2 + 1));
             muln(i) = log(mus(i)) - 0.5 * sigmaln(i)^2;
             lambdas(i,:) = lognrnd(muln(i), sigmaln(i),samples,1);
             if (mod(i,3) == 1)
-                rs(i) = 1;
+                rs(i) = r_f * 1;
             else
                 if (mod(i,3) == 2)
-                    rs(i) = 3;
+                    rs(i) = r_f * 3;
                 else
-                    rs(i) = 5;
+                    rs(i) = r_f * 5;
                 end
             end
         end
     else
         if (n==100)
             for i = 1:n
-                mus(i) = 1/(1 + 1/11*(i-1));
+                mus(i) = mu_f * (1/(1 + 1/11*(i-1)));
                 sigmas(i) = mus(i)* sigma_f;
                 sigmaln(i) = sqrt(log(sigmas(i)^2/mus(i)^2 + 1));
                 muln(i) = log(mus(i)) - 0.5 * sigmaln(i)^2;
                 lambdas(i,:) = lognrnd(muln(i), sigmaln(i),samples,1);
                 if (mod(i,3) == 1)
-                rs(i) = 1;
+                rs(i) = r_f * 1;
                 else
                     if (mod(i,3) == 2)
-                        rs(i) = 3;
+                        rs(i) = r_f * 3;
                     else
-                        rs(i) = 5;
+                        rs(i) = r_f * 5;
                     end
                 end
             end

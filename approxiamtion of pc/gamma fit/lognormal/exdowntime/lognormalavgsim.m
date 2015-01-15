@@ -1,14 +1,16 @@
-function [avg_sim] = lognormalavgsim(n,sigma_f,ed_f)
+function [pavg_sim,e,mus,sigmas] = lognormalavgsim(n,sigma_f,ed_f)
+t = cputime;
 T = 10;
-%samples = 1;
+samples = 10000;
 %%%%%%%%%%%%%%%%%%%%%%%%%Parameter setting of the distribution of these two uniformly distributed lambdas%%%%%%%%%%%%%%%%%%%%%%% 
 if (n==5)
    for i = 1:n
-       mus(i) = 1/(2*i);
+       mus(i) = 0.2 - (i-1) * 0.0450;
        sigmas(i) = mus(i) * sigma_f;
        sigmaln(i) = sqrt(log(sigmas(i)^2/mus(i)^2 + 1));
        muln(i) = log(mus(i)) - 0.5 * sigmaln(i)^2;
-       lambdas(i,:) = lognrnd(muln(i), sigmaln(i),1,10000);
+       lambdas(i,:) = lognrnd(muln(i), sigmaln(i),1,samples);
+       display(lambdas(i,:));
        if (mod(i,3) == 1)
             rs(i) = 1;
         else
@@ -22,11 +24,11 @@ if (n==5)
 else
     if (n==50)
         for i = 1:n
-            mus(i) = 1/(1 + (1/5.5)*(i-1));
+            mus(i) = 0.2 - (i-1) * 0.0037;
             sigmas(i) = mus(i)* sigma_f;
             sigmaln(i) = sqrt(log(sigmas(i)^2/mus(i)^2 + 1));
             muln(i) = log(mus(i)) - 0.5 * sigmaln(i)^2;
-            lambdas(i,:) = lognrnd(muln(i), sigmaln(i),1,10000);
+            lambdas(i,:) = lognrnd(muln(i), sigmaln(i),1,samples);
             if (mod(i,3) == 1)
                 rs(i) = 1;
             else
@@ -40,11 +42,11 @@ else
     else
         if (n==100)
             for i = 1:n
-                mus(i) = 1/(1 + 1/11*(i-1));
+                mus(i) = 0.2 - (i-1) * 0.0018;
                 sigmas(i) = mus(i)* sigma_f;
                 sigmaln(i) = sqrt(log(sigmas(i)^2/mus(i)^2 + 1));
                 muln(i) = log(mus(i)) - 0.5 * sigmaln(i)^2;
-                lambdas(i,:) = lognrnd(muln(i), sigmaln(i),1,10000);
+                lambdas(i,:) = lognrnd(muln(i), sigmaln(i),1,samples);
                 if (mod(i,3) == 1)
                 rs(i) = 1;
                 else
@@ -63,6 +65,8 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Expected System downtime%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D_0 = sum(mus.*rs.*T) * ed_f;
 downtime = poissrnd(lambdas .* T)' * rs';
+display(downtime);
 exdowntime = max(downtime-D_0, 0);
-avg_sim = mean(exdowntime);
+pavg_sim = mean(exdowntime)/D_0;
+e = cputime-t;
 end
